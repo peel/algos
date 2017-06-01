@@ -19,7 +19,7 @@ object d {
         //step 2: if node is not yet processed
         case Some((node, cost)) if !processed.contains(node) =>
           //step 3: count node's neighbours costs
-          val newCost: Option[Map[String, Int]] = graph.get(node).map(_.map {
+          val newCost: Option[Map[String, Int]] = graph.get(node) map (_.map {
               //step 4: if neighbour's cost is lower, update costs
               case (n, c) if c + cost < costs.get(node).getOrElse(0) =>
                 (n, c + cost)
@@ -36,8 +36,7 @@ object d {
 
     //step 0: initialize with cost of start and stop and parents: nothing to start
     val costsOpt = for { s <- graph.get(start); f <- graph.get(stop) } yield s ++ f
-    val parents: Map[String, String] = Map[String, String]("" -> start)
-    apply(costsOpt.getOrElse(Map[String, Int]()), parents, Set())
+    apply(costsOpt.getOrElse(Map()), Map("" -> start), Set())
   }
 
 }
